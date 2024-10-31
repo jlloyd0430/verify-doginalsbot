@@ -36,7 +36,7 @@ client.once('ready', async () => {
 
   try {
     // Clear existing commands for testing
-    await client.application.commands.set([]); 
+    await client.application.commands.set([]);
 
     // Register the /setup command
     const setupCommand = await client.application.commands.create({
@@ -93,7 +93,7 @@ client.once('ready', async () => {
 client.on('interactionCreate', async (interaction) => {
   if (!interaction.isCommand()) return;
 
-  console.log(`Received command: ${interaction.commandName}`); // Log the command name
+  console.log(`Received command: ${interaction.commandName}`);
 
   try {
     await interaction.deferReply({ ephemeral: true });

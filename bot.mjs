@@ -196,7 +196,9 @@ async function checkForRequiredInscriptions(address, inscriptionList, requiredCo
 
       if (!response.ok) throw new Error(`API error: ${response.statusText}`);
       const data = await response.json();
-      const inscriptions = data.data.flatMap((utxo) => utxo.inscriptions || []);
+      
+      // Extract inscriptions from the response
+      const inscriptions = data.data.flatMap((utxo) => utxo.inscriptions.map(i => i.inscription_id) || []);
       allInscriptions.push(...inscriptions);
       cursor = data.next_cursor;
     } while (cursor);

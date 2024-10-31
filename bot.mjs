@@ -93,6 +93,9 @@ client.on('interactionCreate', async (interaction) => {
   console.log(`Received command: ${interaction.commandName}`); // Log the command name
 
   try {
+    // Defer reply to give time for processing
+    await interaction.deferReply({ ephemeral: true });
+
     if (interaction.commandName === 'setup') {
       console.log("Processing /setup command");
 
@@ -104,9 +107,8 @@ client.on('interactionCreate', async (interaction) => {
 
       // Save server settings
       serverSettings.set(interaction.guild.id, { roleID: role.id, collectionName, requiredCount });
-      await interaction.reply({
+      await interaction.editReply({
         content: `Setup complete! Assigned role: ${role.name} for collection ${collectionName} with required count: ${requiredCount}`,
-        ephemeral: true,
       });
 
     } else if (interaction.commandName === 'setcollectionname') {
@@ -123,23 +125,20 @@ client.on('interactionCreate', async (interaction) => {
         guildSettings.collectionName = collectionName;
         serverSettings.set(interaction.guild.id, guildSettings);
 
-        await interaction.reply({
+        await interaction.editReply({
           content: `Collection name set to ${collectionName} for verification.`,
-          ephemeral: true,
         });
       } else {
         console.error(`Collection file ${collectionName}.json does not exist.`);
-        await interaction.reply({
+        await interaction.editReply({
           content: `Collection file ${collectionName}.json does not exist.`,
-          ephemeral: true,
         });
       }
     }
   } catch (error) {
     console.error('Error handling interaction:', error);
-    await interaction.reply({
+    await interaction.editReply({
       content: 'There was an error while processing the command. Please check the logs for more details.',
-      ephemeral: true,
     });
   }
 });

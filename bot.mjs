@@ -34,7 +34,8 @@ const serverSettings = new Collection();
 client.once('ready', async () => {
   console.log(`Logged in as ${client.user.tag}`);
 
-  // Register the /setup command
+  // Register commands
+  await client.application.commands.set([]); // Clear any previous commands
   await client.application.commands.create({
     name: 'setup',
     description: 'Set up role and collection name for verification',
@@ -59,8 +60,6 @@ client.once('ready', async () => {
       }
     ]
   });
-
-  // Register the /setcollectionname command
   await client.application.commands.create({
     name: 'setcollectionname',
     description: 'Set collection name for verification',
@@ -81,53 +80,71 @@ client.once('ready', async () => {
 client.on('interactionCreate', async interaction => {
   if (!interaction.isCommand()) return;
 
-  if (interaction.commandName === 'setup') {
-    const role = interaction.options.getRole('role');
-    const collectionName = interaction.options.getString('collection');
-    const requiredCount = interaction.options.getInteger('required_count');
+  console.log(`Received command: ${interaction.commandName}`); // Debugging log
 
-    // Save server settings
-    serverSettings.set(interaction.guild.id, { roleID: role.id, collectionName, requiredCount });
-    await interaction.reply(`Setup complete! Assigned role: ${role.name} for collection ${collectionName} with required count: ${requiredCount}`);
-  }
+  try {
+    if (interaction.commandName === 'setup') {
+      const role = interaction.options.getRole('role');
+      const collectionName = interaction.options.getString('collection');
+      const requiredCount = interaction.options.getInteger('required_count');
 
-  if (interaction.commandName === 'setcollectionname') {
-    const collectionName = interaction.options.getString('collection');
-    const collectionPath = path.join(__dirname, 'collections', `${collectionName}.json`);
-
-    // Check if the collection file exists
-    if (fs.existsSync(collectionPath)) {
-      const guildSettings = serverSettings.get(interaction.guild.id) || {};
-      guildSettings.collectionName = collectionName;
-      serverSettings.set(interaction.guild.id, guildSettings);
-
-      await interaction.reply(`Collection name set to ${collectionName} for verification.`);
-    } else {
-      await interaction.reply(`Collection file ${collectionName}.json does not exist.`);
+      // Save server settings
+      serverSettings.set(interaction.guild.id, { roleID: role.id, collectionName, requiredCount });
+      await interaction.reply({
+        content: `Setup complete! Assigned role: ${role.name} for collection ${collectionName} with required count: ${requiredCount}`,
+        ephemeral: true,
+      });
     }
+
+    if (interaction.commandName === 'setcollectionname') {
+      const collectionName = interaction.options.getString('collection');
+      const collectionPath = path.join(__dirname, 'collections', `${collectionName}.json`);
+
+      if (fs.existsSync(collectionPath)) {
+        const guildSettings = serverSettings.get(interaction.guild.id) || {};
+        guildSettings.collectionName = collectionName;
+        serverSettings.set(interaction.guild.id, guildSettings);
+
+        await interaction.reply({
+          content: `Collection name set to ${collectionName} for verification.`,
+          ephemeral: true,
+        });
+      } else {
+        await interaction.reply({
+          content: `Collection file ${collectionName}.json does not exist.`,
+          ephemeral: true,
+        });
+      }
+    }
+  } catch (error) {
+    console.error('Error handling interaction:', error);
+    await interaction.reply({
+      content: 'There was an error while processing the command.',
+      ephemeral: true,
+    });
   }
 });
 
-// Function to check wallet inscriptions
+// Function to check wallet inscriptions and update roles
 async function checkWallets() {
   for (const [guildId, settings] of serverSettings) {
     const { roleID, collectionName, requiredCount } = settings;
     const guild = client.guilds.cache.get(guildId);
     const role = guild.roles.cache.get(roleID);
 
-    // Load collection data
     const collectionPath = path.join(__dirname, 'collections', `${collectionName}.json`);
     if (!fs.existsSync(collectionPath)) {
       console.log(`Collection file not found: ${collectionName}.json`);
       continue;
     }
-    const collectionData = JSON.parse(fs.readFileSync(collectionPath, 'utf-8'));
+    const collectionData = JSON.parse(fs.readFileSync(collectionPath, 'utf-8')).inscriptions;
 
-    // Get all users and check inscriptions
+    // Get all users from the database
     const users = await User.find();
     for (const user of users) {
-      const holdsRequiredInscriptions = await checkForRequiredInscriptions(user.walletAddress, collectionData.inscriptions, requiredCount);
-      
+      const holdsRequiredInscriptions = await checkForRequiredInscriptions(user.walletAddress, collectionData, requiredCount);
+
+      // Fetch Discord member by discordID
       const member = await guild.members.fetch(user.discordID).catch(() => null);
       if (member) {
         if (holdsRequiredInscriptions && !member.roles.cache.has(roleID)) {
@@ -142,7 +159,7 @@ async function checkWallets() {
   }
 }
 
-// Function to check for required inscriptions using Maestro API
+// Function to check if wallet holds required inscriptions using Maestro API
 async function checkForRequiredInscriptions(address, inscriptionList, requiredCount) {
   try {
     const headers = { 'api-key': process.env.MAESTRO_API_KEY };
@@ -162,7 +179,6 @@ async function checkForRequiredInscriptions(address, inscriptionList, requiredCo
       cursor = data.next_cursor;
     } while (cursor);
 
-    // Count matches
     const matchingInscriptions = allInscriptions.filter(inscription => inscriptionList.includes(inscription));
     return matchingInscriptions.length >= requiredCount;
   } catch (error) {

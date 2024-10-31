@@ -35,11 +35,11 @@ client.once('ready', async () => {
   console.log(`Logged in as ${client.user.tag}`);
 
   try {
-    // Clear existing commands
+    // Clear existing commands for testing
     await client.application.commands.set([]); 
 
     // Register the /setup command
-    await client.application.commands.create({
+    const setupCommand = await client.application.commands.create({
       name: 'setup',
       description: 'Set up role and collection name for verification',
       options: [
@@ -64,8 +64,10 @@ client.once('ready', async () => {
       ]
     });
 
+    console.log("Setup command registered:", setupCommand);
+
     // Register the /setcollectionname command
-    await client.application.commands.create({
+    const collectionCommand = await client.application.commands.create({
       name: 'setcollectionname',
       description: 'Set collection name for verification',
       options: [
@@ -78,7 +80,8 @@ client.once('ready', async () => {
       ]
     });
 
-    console.log("Commands registered successfully");
+    console.log("Setcollectionname command registered:", collectionCommand);
+
     setInterval(checkWallets, 60000); // Periodically check wallets every 60 seconds
 
   } catch (error) {
@@ -93,7 +96,6 @@ client.on('interactionCreate', async (interaction) => {
   console.log(`Received command: ${interaction.commandName}`); // Log the command name
 
   try {
-    // Defer reply to give time for processing
     await interaction.deferReply({ ephemeral: true });
 
     if (interaction.commandName === 'setup') {
@@ -105,7 +107,6 @@ client.on('interactionCreate', async (interaction) => {
 
       console.log(`Role: ${role.name}, Collection: ${collectionName}, Required Count: ${requiredCount}`);
 
-      // Save server settings
       serverSettings.set(interaction.guild.id, { roleID: role.id, collectionName, requiredCount });
       await interaction.editReply({
         content: `Setup complete! Assigned role: ${role.name} for collection ${collectionName} with required count: ${requiredCount}`,
@@ -120,7 +121,6 @@ client.on('interactionCreate', async (interaction) => {
       if (fs.existsSync(collectionPath)) {
         console.log(`Found collection file: ${collectionName}.json`);
 
-        // Update settings for the guild
         const guildSettings = serverSettings.get(interaction.guild.id) || {};
         guildSettings.collectionName = collectionName;
         serverSettings.set(interaction.guild.id, guildSettings);
@@ -156,16 +156,13 @@ async function checkWallets() {
       continue;
     }
 
-    // Load the list of inscription IDs from the collection JSON
     const collectionData = JSON.parse(fs.readFileSync(collectionPath, 'utf-8'));
     const inscriptionList = collectionData.map((item) => item.inscriptionId);
 
-    // Get all users from the database
     const users = await User.find();
     for (const user of users) {
       const holdsRequiredInscriptions = await checkForRequiredInscriptions(user.walletAddress, inscriptionList, requiredCount);
 
-      // Fetch Discord member by discordID
       const member = await guild.members.fetch(user.discordID).catch(() => null);
       if (member) {
         if (holdsRequiredInscriptions && !member.roles.cache.has(roleID)) {
@@ -180,7 +177,7 @@ async function checkWallets() {
   }
 }
 
-// Function to check if wallet holds required inscriptions using Maestro API
+// Function to check for inscriptions using Maestro API
 async function checkForRequiredInscriptions(address, inscriptionList, requiredCount) {
   try {
     const headers = { 'api-key': process.env.MAESTRO_API_KEY };
@@ -195,14 +192,11 @@ async function checkForRequiredInscriptions(address, inscriptionList, requiredCo
 
       if (!response.ok) throw new Error(`API error: ${response.statusText}`);
       const data = await response.json();
-      
-      // Extract inscriptions from the response
       const inscriptions = data.data.flatMap((utxo) => utxo.inscriptions.map(i => i.inscription_id) || []);
       allInscriptions.push(...inscriptions);
       cursor = data.next_cursor;
     } while (cursor);
 
-    // Check if the wallet holds the required number of matching inscriptions
     const matchingInscriptions = allInscriptions.filter(inscription => inscriptionList.includes(inscription));
     return matchingInscriptions.length >= requiredCount;
   } catch (error) {

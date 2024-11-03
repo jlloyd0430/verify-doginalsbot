@@ -1,0 +1,902 @@
+[
+    {
+        "inscriptionId": "5fe67f7da589a8d667d00e623fd69ffd6a2db13517c4137d8c80f8020a8b0793i0",
+        "name": "Crusader Common 16",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "982f53f5e9cd18499708943f2f6c8a0dc9c2b979f9f1ec49527957742e40985fi0",
+        "name": "Crusader Common 42",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "0034b7daf61a75f18f615a8524c1dbed05045dfa551a8f49f7646fc5b5233732i0",
+        "name": "Crusader Common 34",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "b4fbec0f9cccb92bf69f273bb2be720b08cc5e597153e7708272ade63b298923i0",
+        "name": "Crusader Common 24",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "4f741a468b8a380996cf08870b2e60abc3d52523d025a6aeec2710ce2f2372c9i0",
+        "name": "Crusader Common 60",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "01bd7fbaede074225eb44c282285b8ef8f62a36e0f1a26658977f54d2d7f6b8ai0",
+        "name": "Crusader Common 44",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "4f219b89b0e7e1b2a18f76f39997a14d905c075b4e4dfc1f5716f892087b5613i0",
+        "name": "Crusader Common 28",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "2ca376435c7ef33e4659ae496891c9327ed9aac658ba8361076829227be8c3b3i0",
+        "name": "Crusader Common 38",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "23d1a4e4cdf37d8726fc239315b225bfe2a78494c4cc33df06cee6ab56162226i0",
+        "name": "VoidReaper Rare 70",
+        "attributes": {
+            "NecroNode": "1",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "9c53e2931166fd489f5d6360a5a3921396cca59f21a7776bc4158359a7608afai0",
+        "name": "VoidReaper Rare 73",
+        "attributes": {
+            "NecroNode": "1",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "6531eed22593683ffb15affcf19847545c54b7d70e7dace52f8aec24330fb3c3i0",
+        "name": "Crusader Common 3",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "ecdb282838aafda5d0ba1d726315afde6f4f80c653553da90bf2c126bf3f2fcei0",
+        "name": "Crusader Common 1",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "ea7de42c3cff2116607fe3ea35e6d0b78b9b5ea5a7973d2459c2b531833c110fi0",
+        "name": "Crusader Common 23",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "2e2f507aa11b8fbc8be44c469abd9c22917f44d4fea2bf672b0a5ebfa1e7659ai0",
+        "name": "Crusader Common 2",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "d5699c06e92917cfacd522408ad1b906cf1d862d156e411f480b74774a10ef6ai0",
+        "name": "VoidReaper Rare 82",
+        "attributes": {
+            "NecroNode": "1",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "f06b5b3121f8ddf88698a89665aef838d78c05b5d0f305d671c6cf6f1fb0b4d1i0",
+        "name": "Crusader Common 36",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "1f4bc8158b7739cb98ffc1c0ee35788ecbb114aa8bbc6a4f62981fe179479b33i0",
+        "name": "VoidReaper Rare 81",
+        "attributes": {
+            "NecroNode": "1",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "d0c2dfdd67dd66fe320c5dd59d7f1f80a23512f7e671c0aa5b60107b90baa805i0",
+        "name": "Crusader Common 4",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "320f2599f5892da684d8bfb31483acee8499a048bfff26670f1483608278ddf9i0",
+        "name": "Crusader Common 5",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "b6419037703997ceb8c7a11a08d36153240c474c0b16be99d7141d7168a4a46ai0",
+        "name": "Crusader Common 6",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "d0e665dfe5b0a8a1c53ebfeaa15b2d3b0528f5adc05c07ae5381c0b6ab1765d3i0",
+        "name": "Crusader Common 7",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "808fd40d714224cec951a231eaf8b2442a9503a72ccaa9d7574c4fbb6d696807i0",
+        "name": "Crusader Common 8",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "dd29ae16bb2f6c0456684eb0cff6e64f5060ce4b729ce21473b08e30058f7903i0",
+        "name": "Crusader Common 9",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "b682745b75c519ff2813c14d99650f975121794f54fe3deacbbfaaabc0199b09i0",
+        "name": "Crusader Common 10",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "a757fb39ec35406a3cc7bbce2e4e6ab219b7904465822b269a2914b8c5726c7ci0",
+        "name": "Crusader Common 11",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "ccc0999965de9a7336eec9f51e4d7f99b6303d3bc4d06f3b9a94da5902b423cai0",
+        "name": "Crusader Common 12",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "ec67a418eb794407d1f02f746450aa467000615f1ae80de61eff1b67d311c2dai0",
+        "name": "Crusader Common 13",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "459443d226027165ffb660208c7a28d00909f76eca65aab891398e7bcf1fa8f6i0",
+        "name": "Crusader Common 14",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "3edcb8039f26b42ac7cf7dfa70156e20d5d01a867df44f729999bf06c666b841i0",
+        "name": "Crusader Common 15",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "fda9bdf81139829b9059bdd3f29e27af736152580d24491edf46eec4c4802faci0",
+        "name": "Crusader Common 17",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "020ce9e2fca918f57e7f41e3afd744918ba0bfd3c59149a3e9d5afca0c080ff3i0",
+        "name": "Crusader Common 18",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "0c1a9ea51aa690b1e6496e25ff7ef58f45b36ace88d7e3aece59dd1430ba1fb9i0",
+        "name": "Crusader Common 19",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "57dcc997e07e4388ee934f8803e3d05cfee428fdc75ca083991c68d02610f381i0",
+        "name": "Crusader Common 20",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "d4bf523ce606f929bec5407a3fb46f1b18dfdc72e34d91663f764b4f356f45b3i0",
+        "name": "Crusader Common 21",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "2f72b867f00c40b38d33848958ee88b42b26c714199aab09115acea6ac160e60i0",
+        "name": "Crusader Common 22",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "bef17d4d1279709aed87261f99fc580c02de3385e3899ce3b04cd6d84b0e0b72i0",
+        "name": "Crusader Common 25",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "5586b4964788ee93fc4bd354b81290da8ee0e813153a832a7042e121e938bf61i0",
+        "name": "Crusader Common 26",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "ff5bce63d4679971378708191550194c5c4a6e06cbb0f89f67a21b18b26ffd44i0",
+        "name": "Crusader Common 27",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "ff512ed9a1d3fdf6b1a9913610d113e1dc91d3dce24eddaf1b3d0cc1d98527dai0",
+        "name": "Crusader Common 29",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "cbdda2c948c1e79443a58fbc087d05450b5906bbee5baf3efef2e212c79cd525i0",
+        "name": "Crusader Common 30",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "cc98f79553f6dab9b9b63e6eef7abae333754bb03d5b21c4a4dcc2fc443bf485i0",
+        "name": "Crusader Common 31",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "ed3f45692f0a7e6317018fe5c8b9e07eb7d4c91326c59f7406b89b489d975dfai0",
+        "name": "Crusader Common 32",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "7f8fc4288a74a3078fc4ecebd1c7e30c3dd8b4203d1be68fd4dc3c6cbd014ca9i0",
+        "name": "Crusader Common 33",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "106ea95daf94d3fe7ceefcef7a5b02dee1200959ca9ae23d96e16086431fe77ci0",
+        "name": "Crusader Common 35",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "40ffd435dafe322958d50f2ac9decb3d731ba34034d1828b37d3853d2e297a87i0",
+        "name": "Crusader Common 37",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "e8299efa087d176a262b1b8372949f41c6211d9e82a48792656867c46ed7f0e2i0",
+        "name": "Crusader Common 39",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "c75b7f971f46853faf803ad6c8e255340455419a97d393d42c1e7fc9d429e262i0",
+        "name": "Crusader Common 40",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "74d465b3f087d0871e08fdac4f02bcf646f957d474ff64a6cf7438ecd3cca052i0",
+        "name": "Crusader Common 41",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "4652ea63c5a140682e68e96e73b95207fd077fed1789435c19be1b730a49bc28i0",
+        "name": "Crusader Common 43",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "aa1fc1e5b4ba033505d06d8d6449f1880c193929c87504dae486139afedeef84i0",
+        "name": "Crusader Common 45",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "d1ff0e37b03570d04c95b222ca4130613f5e9e77811c92eb4c675a15d085a089i0",
+        "name": "Crusader Common 46",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "78dd4dd5eb6e8c78ede9d5e767c155ad9178df3ddc977c3698284608464dfdb0i0",
+        "name": "Crusader Common 47",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "ff3991e0e8cd2acd8ef6ba09028f049d23b87b1849604e4e25c6eed8ddd5c87ci0",
+        "name": "Crusader Common 48",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "1428b1b08b2b106795f17b4744d66af53a5c7aea45d4ee0762dce37181b0b26fi0",
+        "name": "Crusader Common 49",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "eb8dd87d45bbcb3ebbe73ab06548fc8510b9838fc8b7a00136d24f77020f7c9bi0",
+        "name": "Crusader Common 50",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "818283f367e0c0ce5f02f5f1acb2bafe28ce0c5944f8d7ba96c49211803c20e7i0",
+        "name": "Crusader Common 51",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "5fe6fcf788216257a5fdf9f53d0dbe6c48345c1c30b78e7011a7275771bfb39fi0",
+        "name": "Crusader Common 52",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "82d632dfb22d1db68999443887eb6771734aae17985e6575ca03943a64a9a802i0",
+        "name": "Crusader Common 53",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "654fc42c612c2bad2aa0918415795b362419bb56e6e792dcda44e15474902e76i0",
+        "name": "Crusader Common 54",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "544220930200ad00dc090b97d20914e2a3b3361f5a31eab18019731fa63f44f5i0",
+        "name": "Crusader Common 55",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "5af5f5b4a68282bb48466b817def163dfaccd75a5e819c6df288ac64adbe29b7i0",
+        "name": "Crusader Common 56",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "90418b95bfadfbbf6da7fafec5a6e9a42071783f2d8576962307ec0ec7cc8504i0",
+        "name": "Crusader Common 57",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "e4e2267db948f4d857a1e1e4e65465834c0b72a9bab1443f86befd2d970b09e5i0",
+        "name": "Crusader Common 58",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "14f4b5c173a03664bae62db3eec1daa749f758fbf8e3f6f2ddfde7470a4e36fci0",
+        "name": "Crusader Common 59",
+        "attributes": {
+            "Legion": "1",
+            "Name": "Quantara",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "5b14f583f7c4376772c12ff34d201c4d55cb99a83162b362799f8b3ecb30df2ei0",
+        "name": "VoidReaper Rare 61",
+        "attributes": {
+            "NecroNode": "1",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "e7ce1f30a72cf7d2a0a6c42a1b8ee270c64b8f41f9d361c12a7b4b2015cbc664i0",
+        "name": "VoidReaper Rare 62",
+        "attributes": {
+            "NecroNode": "1",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "a34acb334602c24895fcfaf12d612d1be3546c320d9276f27cb2a99f9ea4b8a4i0",
+        "name": "VoidReaper Rare 63",
+        "attributes": {
+            "NecroNode": "1",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "2fc17291e7dad6442190a64d84c7abbf123f13b91ebdd969dfbea65cb458aaebi0",
+        "name": "VoidReaper Rare 64",
+        "attributes": {
+            "NecroNode": "1",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "6ba29b4e0b31e18166fbcae5d33838bd6f62c932ebeda3e8915c06f861073d6di0",
+        "name": "VoidReaper Rare 65",
+        "attributes": {
+            "NecroNode": "1",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "42ec3b2dc23d599c83b2fd6ccd275b352c649bc80a5393894f413fd73a9e2b6fi0",
+        "name": "VoidReaper Rare 66",
+        "attributes": {
+            "NecroNode": "1",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "f793a9a12e014a1f0f86b4155cc8ecf5d1a8dbd7d79266dfa37bc9b1c4b94205i0",
+        "name": "VoidReaper Rare 67",
+        "attributes": {
+            "NecroNode": "1",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "63b024419c56b8100e63d7ba2db91ecd4248c223255b123e9c7024ee67a14196i0",
+        "name": "VoidReaper Rare 68",
+        "attributes": {
+            "NecroNode": "1",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "7c53c6056ce6bd52fe553058335a869cdab923c1eaf51dbc7f65a3b041fc8a32i0",
+        "name": "VoidReaper Rare 69",
+        "attributes": {
+            "NecroNode": "1",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "d65908637dd100ec43f861fa54e14c3a20da7b632e97ca1889d7bbdc4a7590b6i0",
+        "name": "VoidReaper Rare 71",
+        "attributes": {
+            "NecroNode": "1",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "b9968e3194d312f4f0e91d7181731506846bf221da42a0250987677309926612i0",
+        "name": "VoidReaper Rare 72",
+        "attributes": {
+            "NecroNode": "1",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "0b57cd1b4e39c347eda246356102dfd9e50f4bfee977ee6e1653079b36fa0739i0",
+        "name": "VoidReaper Rare 74",
+        "attributes": {
+            "NecroNode": "1",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "aa5ae6d53c0fa18c775a7f9f7142f8c7310ed81f2175ea6851b856c5843baacai0",
+        "name": "VoidReaper Rare 75",
+        "attributes": {
+            "NecroNode": "1",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "587e5db69c00df3f2c16115e952c2f8b4db385eb889f9f4180f7c6d7f681d2d0i0",
+        "name": "VoidReaper Rare 76",
+        "attributes": {
+            "NecroNode": "1",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "36f46c7409f2374ec8e29e2b3428b42ed8f9f38af6bcd2b8438b315912db616di0",
+        "name": "VoidReaper Rare 77",
+        "attributes": {
+            "NecroNode": "1",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "9b719fcf6125fbb68c46c7b8aebbf3316deb204696c2d5b06b562e9cba83eb17i0",
+        "name": "VoidReaper Rare 78",
+        "attributes": {
+            "NecroNode": "1",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "d69ce5c337dc3a7e7e1720543ece52eacf418603f781580180a65725e780c3f4i0",
+        "name": "VoidReaper Rare 79",
+        "attributes": {
+            "NecroNode": "1",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "0bb78903d24c0104f8fed251a06449ac9d8a88c93bb12854e39d1e72336b0ae6i0",
+        "name": "VoidReaper Rare 80",
+        "attributes": {
+            "NecroNode": "1",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "6a4aea87ae61937616eda82670761dfcd4dec81fd82881a2b462e0a159aaa8a7i0",
+        "name": "VoidReaper Rare 83",
+        "attributes": {
+            "NecroNode": "1",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "50673af50c9faddab2999da0507399cc9385f2de9c81a4d4d06658f19e467045i0",
+        "name": "VoidReaper Rare 84",
+        "attributes": {
+            "NecroNode": "1",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "b63cb0bdeb97bc98ccf4b32c3dd28b99e61a95419508e8b4faaec574d6c52567i0",
+        "name": "VoidReaper Rare 85",
+        "attributes": {
+            "NecroNode": "1",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "756c7465630d332bf6569303fdf80b482807d8e95555c97de0a84789fe7505d7i0",
+        "name": "VoidReaper Rare 86",
+        "attributes": {
+            "NecroNode": "1",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "0c39f7318565a2b264e8a391d46c4f55cc4f5ee6335e9af0aef6b42777676b8ai0",
+        "name": "VoidReaper Rare 87",
+        "attributes": {
+            "NecroNode": "1",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "035e1db99b2625bb8a1b5c37fb97cb12e2580a5ae0024343624f3ba53c830ec6i0",
+        "name": "VoidReaper Rare 88",
+        "attributes": {
+            "NecroNode": "1",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "0412996d17e40e74af5edccc9fc8ff171304aab4cc20488706599d364d361d99i0",
+        "name": "VoidReaper Rare 90",
+        "attributes": {
+            "NecroNode": "1",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "33522c635050c8da62a0f9981a4aac9094614a72e7851abc027bb77c4e045601i0",
+        "name": "Gold Commander Ulta Rare 91",
+        "attributes": {
+            "Legion": "7",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "d8abbf11a8b9fde34f8c7c29b761bb50687e3cb49284444857c8e73fa76eedfai0",
+        "name": "Gold Commander Ulta Rare 92",
+        "attributes": {
+            "Legion": "7",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "1ebb067e0f3ca5025dfd26c91ebc94e77bc2ad6950ec850965247aa858a88351i0",
+        "name": "Gold Commander Ulta Rare 93",
+        "attributes": {
+            "Legion": "7",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "f9577e018bdbf5dc26f4b51fed18c3fc77b10981874c79a41d2cf14eebd56857i0",
+        "name": "Gold Commander Ulta Rare 94",
+        "attributes": {
+            "Legion": "7",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "da581f821d73bdbc12bbc8c172670169f3a269c7da866fc85af43daccb3355c1i0",
+        "name": "Gold Commander Ulta Rare 95",
+        "attributes": {
+            "Legion": "7",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "7d06284cdcd83a26ad7acdc93f897929be24ecdc925b343c3c94d99244dc58abi0",
+        "name": "Gold Commander Ulta Rare 96",
+        "attributes": {
+            "Legion": "7",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "f726b932a43104eef8879783abd76f4a462cd0e453a958c1bd1d2e40a02f5226i0",
+        "name": "Gold Commander Ulta Rare 97",
+        "attributes": {
+            "Legion": "7",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "d34ed9a978d76f1ff1fa150c97924a36cc7a0ed52e1c22a6372c30e797a23bd1i0",
+        "name": "Gold Commander Ulta Rare 98",
+        "attributes": {
+            "Legion": "7",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "e42fd13b70f6e6ea5f3c20d0567cff26a5b80826be0b21da33bc9361964c7bf7i0",
+        "name": "Gold Commander Ulta Rare 99",
+        "attributes": {
+            "Legion": "7",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "2bd87c5cf719e16007bc9c709eae6487929fd28299896096b932dc7c4a14ff13i0",
+        "name": "Gold Commander Ulta Rare 100",
+        "attributes": {
+            "Legion": "7",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    },
+    {
+        "inscriptionId": "02ab537c7ebbffefe8da33404bf14ac4fb67ccf7f85206ba09f91bf1466f8ba0i0",
+        "name": "VoidReaper Rare 89",
+        "attributes": {
+            "NecroNode": "1",
+            "Name": "Vexana",
+            "Node Ownership": "1%"
+        }
+    }
+]

@@ -5,7 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-const { Client, GatewayIntentBits, Collection } = pkg;
+const { Client, GatewayIntentBits } = pkg;
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 dotenv.config();
@@ -136,7 +136,6 @@ client.on('interactionCreate', async (interaction) => {
   }
 });
 
-// Function to check wallet inscriptions, tokens, and dunes, and update roles accordingly
 async function checkWallets() {
   console.log("Starting wallet check...");
 
@@ -161,14 +160,19 @@ async function checkWallets() {
       continue;
     }
 
+    const collectionPath = path.join(__dirname, 'collections', `${collectionName}.json`);
+    const inscriptionList = fs.existsSync(collectionPath)
+      ? JSON.parse(fs.readFileSync(collectionPath, 'utf-8')).map((item) => item.inscriptionId)
+      : [];
+
     const users = await User.find();
     for (const user of users) {
       for (const wallet of user.walletAddresses) {
         const member = await guild.members.fetch(user.discordID).catch(() => null);
         if (!member) continue;
 
-        const holdsInscriptions = collectionName 
-          ? await checkForRequiredInscriptions(wallet.address, collectionName, requiredCount)
+        const holdsInscriptions = collectionName && inscriptionList.length > 0
+          ? await checkForRequiredInscriptions(wallet.address, inscriptionList, requiredCount)
           : false;
 
         const holdsTokens = tokenTicker
@@ -191,8 +195,7 @@ async function checkWallets() {
   }
 }
 
-// Function to check for required inscriptions using the Maestro API
-async function checkForRequiredInscriptions(address, collectionName, requiredCount) {
+async function checkForRequiredInscriptions(address, inscriptionList, requiredCount) {
   console.log(`Checking inscriptions for wallet address: ${address}`);
   try {
     const headers = { 'api-key': process.env.MAESTRO_API_KEY };
@@ -213,7 +216,8 @@ async function checkForRequiredInscriptions(address, collectionName, requiredCou
       cursor = data.next_cursor;
     } while (cursor);
 
-    const matchingInscriptions = allInscriptions.filter(inscription => inscription === collectionName);
+    const matchingInscriptions = allInscriptions.filter(inscription => inscriptionList.includes(inscription));
+    console.log(`Wallet ${address} holds ${matchingInscriptions.length} matching inscriptions (Required: ${requiredCount}).`);
     return matchingInscriptions.length >= requiredCount;
   } catch (error) {
     console.error('Error checking inscriptions:', error);
@@ -221,7 +225,6 @@ async function checkForRequiredInscriptions(address, collectionName, requiredCou
   }
 }
 
-// Function to check for required DRC-20 tokens using the Maestro API
 async function checkForRequiredTokens(address, tokenTicker, requiredTokenAmount) {
   const headers = { 'api-key': process.env.MAESTRO_API_KEY };
   try {
@@ -230,15 +233,14 @@ async function checkForRequiredTokens(address, tokenTicker, requiredTokenAmount)
       headers,
     });
     if (!response.ok) throw new Error(`API error: ${response.statusText}`);
-    
+
     const data = await response.json();
-    
     const tokenData = data.data[tokenTicker];
     if (!tokenData) {
       console.log(`Token ${tokenTicker} not found for address ${address}.`);
       return false;
     }
-    
+
     const availableBalance = parseFloat(tokenData);
     return availableBalance >= requiredTokenAmount;
   } catch (error) {
@@ -247,7 +249,6 @@ async function checkForRequiredTokens(address, tokenTicker, requiredTokenAmount)
   }
 }
 
-// Function to check for required Dunes using the Maestro API
 async function checkForRequiredDunes(address, duneID, requiredDuneAmount) {
   const headers = { 'api-key': process.env.MAESTRO_API_KEY };
   try {
@@ -258,7 +259,6 @@ async function checkForRequiredDunes(address, duneID, requiredDuneAmount) {
     if (!response.ok) throw new Error(`API error: ${response.statusText}`);
 
     const data = await response.json();
-    
     const duneData = data.data[duneID];
     if (!duneData) {
       console.log(`Dune ${duneID} not found for address ${address}.`);

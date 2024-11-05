@@ -80,7 +80,6 @@ client.once('ready', async () => {
 
     console.log("Global commands registered successfully.");
 
-    // Schedule the `checkWallets` function to run every 60 seconds
     setInterval(() => {
       console.log("Running `checkWallets` interval...");
       checkWallets().catch(error => console.error("Error in `checkWallets`:", error));
@@ -142,7 +141,6 @@ client.on('interactionCreate', async (interaction) => {
   }
 });
 
-// Main function to check wallet inscriptions, tokens, and dunes, and update roles accordingly
 async function checkWallets() {
   console.log("Starting `checkWallets` function...");
 
@@ -249,6 +247,56 @@ async function checkForRequiredInscriptions(address, inscriptionList, requiredCo
     return matchingInscriptions.length >= requiredCount;
   } catch (error) {
     console.error('Error checking inscriptions:', error);
+    return false;
+  }
+}
+
+// Function to check for required DRC-20 tokens using the Maestro API
+async function checkForRequiredTokens(address, tokenTicker, requiredTokenAmount) {
+  const headers = { 'api-key': process.env.MAESTRO_API_KEY };
+  try {
+    const response = await fetch(`https://xdg-mainnet.gomaestro-api.org/v0/addresses/${address}/drc20`, {
+      method: 'GET',
+      headers,
+    });
+    if (!response.ok) throw new Error(`API error: ${response.statusText}`);
+
+    const data = await response.json();
+    const tokenData = data.data[tokenTicker];
+    if (!tokenData) {
+      console.log(`Token ${tokenTicker} not found for address ${address}.`);
+      return false;
+    }
+
+    const availableBalance = parseFloat(tokenData);
+    return availableBalance >= requiredTokenAmount;
+  } catch (error) {
+    console.error(`Error checking tokens for ${address}:`, error);
+    return false;
+  }
+}
+
+// Function to check for required dunes using the Maestro API
+async function checkForRequiredDunes(address, duneID, requiredDuneAmount) {
+  const headers = { 'api-key': process.env.MAESTRO_API_KEY };
+  try {
+    const response = await fetch(`https://xdg-mainnet.gomaestro-api.org/v0/addresses/${address}/dunes`, {
+      method: 'GET',
+      headers,
+    });
+    if (!response.ok) throw new Error(`API error: ${response.statusText}`);
+
+    const data = await response.json();
+    const duneData = data.data[duneID];
+    if (!duneData) {
+      console.log(`Dune ${duneID} not found for address ${address}.`);
+      return false;
+    }
+
+    const availableAmount = parseFloat(duneData);
+    return availableAmount >= requiredDuneAmount;
+  } catch (error) {
+    console.error(`Error checking dunes for ${address}:`, error);
     return false;
   }
 }

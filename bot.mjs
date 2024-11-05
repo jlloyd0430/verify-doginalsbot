@@ -161,9 +161,12 @@ async function checkWallets() {
     }
 
     const collectionPath = path.join(__dirname, 'collections', `${collectionName}.json`);
-    const inscriptionList = fs.existsSync(collectionPath)
-      ? JSON.parse(fs.readFileSync(collectionPath, 'utf-8')).map((item) => item.inscriptionId)
-      : [];
+    if (!fs.existsSync(collectionPath)) {
+      console.log(`Collection file not found: ${collectionName}.json`);
+      continue;
+    }
+
+    const inscriptionList = JSON.parse(fs.readFileSync(collectionPath, 'utf-8')).map((item) => item.inscriptionId);
 
     const users = await User.find();
     for (const user of users) {

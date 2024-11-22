@@ -24,9 +24,10 @@ const criteriaSchema = new mongoose.Schema({
   requiredCount: Number, // For NFTs and Dunes
   tokenTicker: String, // For DRC-20 Tokens
   requiredTokenAmount: Number, // For DRC-20 Tokens
-  duneID: String, // For Dunes
+  duneName: String, // For Dunes
   requiredDuneAmount: Number, // For Dunes
 });
+
 
 // Sub-schema for roles
 const roleSchema = new mongoose.Schema({
@@ -77,15 +78,15 @@ async function registerCommands() {
           { name: 'required_token_amount', type: 4, description: 'Minimum amount required', required: true },
         ],
       },
-      {
-        name: 'setdune',
-        description: 'Set up role for Dunes',
-        options: [
-          { name: 'role', type: 8, description: 'Role to assign', required: true },
-          { name: 'dune_id', type: 3, description: 'Dune ID', required: true },
-          { name: 'required_dune_amount', type: 4, description: 'Minimum amount required', required: true },
-        ],
-      },
+    {
+  name: 'setdune',
+  description: 'Set up role for Dunes',
+  options: [
+    { name: 'role', type: 8, description: 'Role to assign', required: true },
+    { name: 'dune_name', type: 3, description: 'Dune name (e.g., WONKY•ORD)', required: true },
+    { name: 'required_dune_amount', type: 4, description: 'Minimum amount required', required: true },
+  ],
+}
     ]);
     console.log("Commands registered successfully.");
   } catch (error) {
@@ -146,22 +147,25 @@ client.on('interactionCreate', async (interaction) => {
 
       await interaction.editReply(`Token role setup complete for ${role.name} with ticker ${tokenTicker}.`);
 
-    } else if (interaction.commandName === 'setdune') {
-      const duneID = interaction.options.getString('dune_id');
-      const requiredDuneAmount = interaction.options.getInteger('required_dune_amount');
+    } } else if (interaction.commandName === 'setdune') {
+  let duneName = interaction.options
+    .getString('dune_name')
+    .toUpperCase()
+    .replace(/ /g, '•'); // Convert to uppercase and replace spaces with "•"
+  const requiredDuneAmount = interaction.options.getInteger('required_dune_amount');
 
-      await GuildSettings.findOneAndUpdate(
-        { guildID: interaction.guild.id },
-        {
-          $push: {
-            roles: { roleID: role.id, criteria: { type: 'dune', duneID, requiredDuneAmount } },
-          },
-        },
-        { upsert: true }
-      );
+  await GuildSettings.findOneAndUpdate(
+    { guildID: interaction.guild.id },
+    {
+      $push: {
+        roles: { roleID: role.id, criteria: { type: 'dune', duneName, requiredDuneAmount } },
+      },
+    },
+    { upsert: true }
+  );
 
-      await interaction.editReply(`Dune role setup complete for ${role.name} with Dune ID ${duneID}.`);
-    }
+  await interaction.editReply(`Dune role setup complete for ${role.name} with Dune name ${duneName}.`);
+}
   } catch (error) {
     console.error("Error handling interaction:", error);
     if (!interaction.replied) {
@@ -280,29 +284,35 @@ async function checkForRequiredTokens(address, tokenTicker, requiredTokenAmount)
 }
 
 // Function to check for required dunes
-async function checkForRequiredDunes(address, duneID, requiredDuneAmount) {
-  const headers = { 'api-key': process.env.MAESTRO_API_KEY };
+async function fetchWalletDunes(address) {
+  const url = `https://wonky-ord.dogeord.io/dunes/balance/${address}?show_all=true`;
   try {
-    const response = await fetch(`https://xdg-mainnet.gomaestro-api.org/v0/addresses/${address}/dunes`, {
-      method: 'GET',
-      headers,
-    });
-    if (!response.ok) throw new Error(`API error: ${response.statusText}`);
-
-    const data = await response.json();
-    const duneData = data.data[duneID];
-    if (!duneData) {
-      console.log(`Dune ${duneID} not found for address ${address}.`);
-      return false;
-    }
-
-    const availableAmount = parseFloat(duneData);
-    console.log(`Wallet ${address} holds ${availableAmount} of Dune ${duneID} (Required: ${requiredDuneAmount}).`);
-    return availableAmount >= requiredDuneAmount;
+    const response = await axios.get(url);
+    return response.data.dunes; // Returns array of dune objects
   } catch (error) {
-    console.error(`Error checking dunes for ${address}:`, error);
-    return false;
+    console.error(`Error fetching dunes for wallet ${address}:`, error);
+    return [];
   }
 }
+
+async function checkForRequiredDunes(walletAddresses, duneName, requiredDuneAmount) {
+  try {
+    for (const wallet of walletAddresses) {
+      const dunes = await fetchWalletDunes(wallet.address);
+      const dune = dunes.find((d) => d.name === duneName);
+
+      if (dune && dune.amount >= requiredDuneAmount) {
+        console.log(
+          `Wallet ${wallet.address} has sufficient Dune: ${duneName}, Amount: ${dune.amount} (Required: ${requiredDuneAmount}).`
+        );
+        return true;
+      }
+    }
+  } catch (error) {
+    console.error(`Error checking dunes for wallet:`, error);
+  }
+  return false;
+}
+
 
 client.login(process.env.DISCORD_BOT_TOKEN);

@@ -17,6 +17,31 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch((error) => console.error('MongoDB connection error:', error));
 
+// Sub-schema for criteria
+const criteriaSchema = new mongoose.Schema({
+  type: { type: String, required: true }, // 'nft', 'token', or 'dune'
+  collectionName: String, // For NFTs
+  requiredCount: Number, // For NFTs and Dunes
+  tokenTicker: String, // For DRC-20 Tokens
+  requiredTokenAmount: Number, // For DRC-20 Tokens
+  duneID: String, // For Dunes
+  requiredDuneAmount: Number, // For Dunes
+});
+
+// Sub-schema for roles
+const roleSchema = new mongoose.Schema({
+  roleID: { type: String, required: true },
+  criteria: { type: criteriaSchema, required: true },
+});
+
+// Guild settings schema
+const guildSettingsSchema = new mongoose.Schema({
+  guildID: { type: String, required: true },
+  roles: [roleSchema],
+});
+
+const GuildSettings = mongoose.model('GuildSettings', guildSettingsSchema);
+
 const userSchema = new mongoose.Schema({
   discordID: String,
   walletAddresses: [
@@ -28,30 +53,11 @@ const userSchema = new mongoose.Schema({
 });
 const User = mongoose.model('User', userSchema);
 
-const guildSettingsSchema = new mongoose.Schema({
-  guildID: String,
-  roles: [
-    {
-      roleID: String,
-      criteria: {
-        type: String, // e.g., 'nft', 'token', 'dune'
-        collectionName: String, // For NFTs
-        requiredCount: Number, // For NFTs and Dunes
-        tokenTicker: String, // For DRC-20 Tokens
-        requiredTokenAmount: Number, // For DRC-20 Tokens
-        duneID: String, // For Dunes
-        requiredDuneAmount: Number, // For Dunes
-      },
-    },
-  ],
-});
-const GuildSettings = mongoose.model('GuildSettings', guildSettingsSchema);
-
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers] });
 
 async function registerCommands() {
   try {
-    console.log("Refreshing and registering application commands...");
+    console.log("Registering commands...");
     await client.application.commands.set([
       {
         name: 'setup',
@@ -81,7 +87,7 @@ async function registerCommands() {
         ],
       },
     ]);
-    console.log("Application commands registered successfully.");
+    console.log("Commands registered successfully.");
   } catch (error) {
     console.error("Error registering commands:", error);
   }
@@ -215,7 +221,6 @@ async function checkWallets() {
 }
 
 // Add the check functions here: checkForRequiredInscriptions, checkForRequiredTokens, checkForRequiredDunes
-
 // Function to check for inscriptions using Maestro API
 async function checkForRequiredInscriptions(address, inscriptionList, requiredCount) {
   console.log(`Checking inscriptions for wallet address: ${address}`);

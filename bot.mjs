@@ -17,32 +17,6 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch((error) => console.error('MongoDB connection error:', error));
 
-// Sub-schema for criteria
-const criteriaSchema = new mongoose.Schema({
-  type: { type: String, required: true }, // 'nft', 'token', or 'dune'
-  collectionName: String, // For NFTs
-  requiredCount: Number, // For NFTs and Dunes
-  tokenTicker: String, // For DRC-20 Tokens
-  requiredTokenAmount: Number, // For DRC-20 Tokens
-  duneName: String, // For Dunes
-  requiredDuneAmount: Number, // For Dunes
-});
-
-
-// Sub-schema for roles
-const roleSchema = new mongoose.Schema({
-  roleID: { type: String, required: true },
-  criteria: { type: criteriaSchema, required: true },
-});
-
-// Guild settings schema
-const guildSettingsSchema = new mongoose.Schema({
-  guildID: { type: String, required: true },
-  roles: [roleSchema],
-});
-
-const GuildSettings = mongoose.model('GuildSettings', guildSettingsSchema);
-
 const userSchema = new mongoose.Schema({
   discordID: String,
   walletAddresses: [
@@ -54,41 +28,53 @@ const userSchema = new mongoose.Schema({
 });
 const User = mongoose.model('User', userSchema);
 
+const guildSettingsSchema = new mongoose.Schema({
+  guildID: String,
+  roleID: String,
+  collectionName: String,
+  requiredCount: Number,
+  tokenTicker: String,
+  requiredTokenAmount: Number,
+  duneID: String,
+  requiredDuneAmount: Number,
+});
+const GuildSettings = mongoose.model('GuildSettings', guildSettingsSchema);
+
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers] });
 
 async function registerCommands() {
   try {
-    console.log("Registering commands...");
+    console.log("Refreshing and registering application commands...");
     await client.application.commands.set([
       {
         name: 'setup',
-        description: 'Set up role for NFTs',
+        description: 'Set up role and collection name for verification',
         options: [
           { name: 'role', type: 8, description: 'Role to assign', required: true },
-          { name: 'collection', type: 3, description: 'Collection name', required: true },
-          { name: 'required_count', type: 4, description: 'Minimum number of NFTs required', required: true },
+          { name: 'collection', type: 3, description: 'Collection name (e.g., dmb)', required: true },
+          { name: 'required_count', type: 4, description: 'Number of inscriptions required to assign role', required: true },
         ],
       },
       {
         name: 'settoken',
-        description: 'Set up role for DRC-20 tokens',
+        description: 'Set token for role verification',
         options: [
           { name: 'role', type: 8, description: 'Role to assign', required: true },
-          { name: 'token_ticker', type: 3, description: 'Token ticker', required: true },
-          { name: 'required_token_amount', type: 4, description: 'Minimum amount required', required: true },
+          { name: 'token_ticker', type: 3, description: 'Token ticker (e.g., DOGE)', required: true },
+          { name: 'required_token_amount', type: 4, description: 'Minimum amount of tokens required', required: true },
         ],
       },
-    {
-  name: 'setdune',
-  description: 'Set up role for Dunes',
-  options: [
-    { name: 'role', type: 8, description: 'Role to assign', required: true },
-    { name: 'dune_name', type: 3, description: 'Dune name (e.g., WONKY•ORD)', required: true },
-    { name: 'required_dune_amount', type: 4, description: 'Minimum amount required', required: true },
-  ],
-}
+      {
+        name: 'setdune',
+        description: 'Set Dune for role verification',
+        options: [
+          { name: 'role', type: 8, description: 'Role to assign', required: true },
+          { name: 'dune_id', type: 3, description: 'Dune ID to verify (e.g., 5244142:13)', required: true },
+          { name: 'required_dune_amount', type: 4, description: 'Minimum amount of dunes required', required: true },
+        ],
+      },
     ]);
-    console.log("Commands registered successfully.");
+    console.log("Application commands registered successfully.");
   } catch (error) {
     console.error("Error registering commands:", error);
   }
@@ -96,16 +82,12 @@ async function registerCommands() {
 
 client.once('ready', async () => {
   console.log(`Logged in as ${client.user.tag}`);
-  await registerCommands();
+  await registerCommands(); // Refresh commands on bot startup
 
-  setInterval(async () => {
-    try {
-      console.log("Checking wallets...");
-      await checkWallets();
-    } catch (error) {
-      console.error("Error in wallet check:", error);
-    }
-  }, 60000);
+  setInterval(() => {
+    console.log("Running `checkWallets` interval...");
+    checkWallets().catch(error => console.error("Error in `checkWallets`:", error));
+  }, 60000); // Periodically check wallets every 60 seconds
 });
 
 client.on('interactionCreate', async (interaction) => {
@@ -114,117 +96,119 @@ client.on('interactionCreate', async (interaction) => {
   try {
     await interaction.deferReply({ ephemeral: true });
 
-    const role = interaction.options.getRole('role');
     if (interaction.commandName === 'setup') {
+      const role = interaction.options.getRole('role');
       const collectionName = interaction.options.getString('collection');
       const requiredCount = interaction.options.getInteger('required_count');
 
       await GuildSettings.findOneAndUpdate(
         { guildID: interaction.guild.id },
-        {
-          $push: {
-            roles: { roleID: role.id, criteria: { type: 'nft', collectionName, requiredCount } },
-          },
-        },
+        { roleID: role.id, collectionName, requiredCount },
         { upsert: true }
       );
 
-      await interaction.editReply(`NFT role setup complete for ${role.name} with collection ${collectionName}.`);
+      await interaction.editReply(`Setup complete! Assigned role: ${role.name} for collection ${collectionName} with required count: ${requiredCount}`);
+      console.log(`Setup command executed for guild ${interaction.guild.id}`);
 
     } else if (interaction.commandName === 'settoken') {
+      const role = interaction.options.getRole('role');
       const tokenTicker = interaction.options.getString('token_ticker');
       const requiredTokenAmount = interaction.options.getInteger('required_token_amount');
 
       await GuildSettings.findOneAndUpdate(
         { guildID: interaction.guild.id },
-        {
-          $push: {
-            roles: { roleID: role.id, criteria: { type: 'token', tokenTicker, requiredTokenAmount } },
-          },
-        },
+        { roleID: role.id, tokenTicker, requiredTokenAmount },
         { upsert: true }
       );
 
-      await interaction.editReply(`Token role setup complete for ${role.name} with ticker ${tokenTicker}.`);
+      await interaction.editReply(`Token setup complete! Assigned role: ${role.name} for token ${tokenTicker} with required amount: ${requiredTokenAmount}`);
 
-    } } else if (interaction.commandName === 'setdune') {
-  let duneName = interaction.options
-    .getString('dune_name')
-    .toUpperCase()
-    .replace(/ /g, '•'); // Convert to uppercase and replace spaces with "•"
-  const requiredDuneAmount = interaction.options.getInteger('required_dune_amount');
+    } else if (interaction.commandName === 'setdune') {
+      const role = interaction.options.getRole('role');
+      const duneID = interaction.options.getString('dune_id');
+      const requiredDuneAmount = interaction.options.getInteger('required_dune_amount');
 
-  await GuildSettings.findOneAndUpdate(
-    { guildID: interaction.guild.id },
-    {
-      $push: {
-        roles: { roleID: role.id, criteria: { type: 'dune', duneName, requiredDuneAmount } },
-      },
-    },
-    { upsert: true }
-  );
+      await GuildSettings.findOneAndUpdate(
+        { guildID: interaction.guild.id },
+        { roleID: role.id, duneID, requiredDuneAmount },
+        { upsert: true }
+      );
 
-  await interaction.editReply(`Dune role setup complete for ${role.name} with Dune name ${duneName}.`);
-}
+      await interaction.editReply(`Dune setup complete! Assigned role: ${role.name} for dune ID ${duneID} with required amount: ${requiredDuneAmount}`);
+    }
   } catch (error) {
-    console.error("Error handling interaction:", error);
+    console.error('Error handling interaction:', error);
     if (!interaction.replied) {
-      await interaction.editReply("An error occurred while processing the command.");
+      await interaction.editReply('There was an error while processing the command. Please check the logs for more details.');
     }
   }
 });
 
 async function checkWallets() {
+  console.log("Starting wallet check...");
   const guildSettings = await GuildSettings.find();
+  if (guildSettings.length === 0) {
+    console.log("No guild settings found. Make sure to run /setup or /setcollectionname commands.");
+    return;
+  }
   for (const settings of guildSettings) {
+    console.log(`Processing settings for guild ID: ${settings.guildID}`, settings);
+    const { roleID, collectionName, requiredCount, tokenTicker, requiredTokenAmount, duneID, requiredDuneAmount } = settings;
     const guild = client.guilds.cache.get(settings.guildID);
-    if (!guild) continue;
+    if (!guild) {
+      console.error(`Guild with ID ${settings.guildID} not found.`);
+      continue;
+    }
+    const role = guild.roles.cache.get(roleID);
+    if (!role) {
+      console.error(`Role with ID ${roleID} not found in guild ${guild.name}.`);
+      continue;
+    }
 
-    for (const roleSettings of settings.roles) {
-      const { roleID, criteria } = roleSettings;
-      const role = guild.roles.cache.get(roleID);
-      if (!role) continue;
+    const collectionPath = path.join(__dirname, 'collections', `${collectionName}.json`);
+    if (!fs.existsSync(collectionPath)) {
+      console.log(`Collection file not found: ${collectionName}.json`);
+      continue;
+    }
 
-      const users = await User.find();
-      for (const user of users) {
+    const collectionData = JSON.parse(fs.readFileSync(collectionPath, 'utf-8'));
+    const inscriptionList = collectionData.map((item) => item.inscriptionId);
+    const users = await User.find();
+    console.log(`Found ${users.length} users in the database.`);
+    for (const user of users) {
+      for (const wallet of user.walletAddresses) {
+        console.log(`Checking for user ${user.discordID}, Wallet Address: ${wallet.address}`);
+
         const member = await guild.members.fetch(user.discordID).catch(() => null);
-        if (!member) continue;
-
-        let hasRole = false;
-
-        if (criteria.type === 'nft') {
-          hasRole = await checkForRequiredInscriptions(
-            user.walletAddresses, 
-            criteria.collectionName, 
-            criteria.requiredCount
-          );
-        } else if (criteria.type === 'token') {
-          hasRole = await checkForRequiredTokens(
-            user.walletAddresses, 
-            criteria.tokenTicker, 
-            criteria.requiredTokenAmount
-          );
-        } else if (criteria.type === 'dune') {
-          hasRole = await checkForRequiredDunes(
-            user.walletAddresses, 
-            criteria.duneID, 
-            criteria.requiredDuneAmount
-          );
+        if (!member) {
+          console.log(`User with Discord ID ${user.discordID} not found in guild.`);
+          continue;
         }
 
-        if (hasRole && !member.roles.cache.has(roleID)) {
+        const holdsInscriptions = collectionName && inscriptionList.length > 0
+          ? await checkForRequiredInscriptions(wallet.address, inscriptionList, requiredCount)
+          : false;
+
+        const holdsTokens = tokenTicker
+          ? await checkForRequiredTokens(wallet.address, tokenTicker, requiredTokenAmount)
+          : false;
+
+        const holdsDunes = duneID
+          ? await checkForRequiredDunes(wallet.address, duneID, requiredDuneAmount)
+          : false;
+
+        if ((holdsInscriptions || holdsTokens || holdsDunes) && !member.roles.cache.has(roleID)) {
           await member.roles.add(role);
-          console.log(`Added role ${role.name} to ${member.user.tag}`);
-        } else if (!hasRole && member.roles.cache.has(roleID)) {
+          console.log(`Granted role ${role.name} to ${member.user.tag}`);
+        } else if (!(holdsInscriptions || holdsTokens || holdsDunes) && member.roles.cache.has(roleID)) {
           await member.roles.remove(role);
-          console.log(`Removed role ${role.name} from ${member.user.tag}`);
+          console.log(`Revoked role ${role.name} from ${member.user.tag}`);
         }
       }
     }
   }
 }
 
-// Add the check functions here: checkForRequiredInscriptions, checkForRequiredTokens, checkForRequiredDunes
 // Function to check for inscriptions using Maestro API
 async function checkForRequiredInscriptions(address, inscriptionList, requiredCount) {
   console.log(`Checking inscriptions for wallet address: ${address}`);
@@ -284,35 +268,29 @@ async function checkForRequiredTokens(address, tokenTicker, requiredTokenAmount)
 }
 
 // Function to check for required dunes
-async function fetchWalletDunes(address) {
-  const url = `https://wonky-ord.dogeord.io/dunes/balance/${address}?show_all=true`;
+async function checkForRequiredDunes(address, duneID, requiredDuneAmount) {
+  const headers = { 'api-key': process.env.MAESTRO_API_KEY };
   try {
-    const response = await axios.get(url);
-    return response.data.dunes; // Returns array of dune objects
-  } catch (error) {
-    console.error(`Error fetching dunes for wallet ${address}:`, error);
-    return [];
-  }
-}
+    const response = await fetch(`https://xdg-mainnet.gomaestro-api.org/v0/addresses/${address}/dunes`, {
+      method: 'GET',
+      headers,
+    });
+    if (!response.ok) throw new Error(`API error: ${response.statusText}`);
 
-async function checkForRequiredDunes(walletAddresses, duneName, requiredDuneAmount) {
-  try {
-    for (const wallet of walletAddresses) {
-      const dunes = await fetchWalletDunes(wallet.address);
-      const dune = dunes.find((d) => d.name === duneName);
-
-      if (dune && dune.amount >= requiredDuneAmount) {
-        console.log(
-          `Wallet ${wallet.address} has sufficient Dune: ${duneName}, Amount: ${dune.amount} (Required: ${requiredDuneAmount}).`
-        );
-        return true;
-      }
+    const data = await response.json();
+    const duneData = data.data[duneID];
+    if (!duneData) {
+      console.log(`Dune ${duneID} not found for address ${address}.`);
+      return false;
     }
-  } catch (error) {
-    console.error(`Error checking dunes for wallet:`, error);
-  }
-  return false;
-}
 
+    const availableAmount = parseFloat(duneData);
+    console.log(`Wallet ${address} holds ${availableAmount} of Dune ${duneID} (Required: ${requiredDuneAmount}).`);
+    return availableAmount >= requiredDuneAmount;
+  } catch (error) {
+    console.error(`Error checking dunes for ${address}:`, error);
+    return false;
+  }
+}
 
 client.login(process.env.DISCORD_BOT_TOKEN);

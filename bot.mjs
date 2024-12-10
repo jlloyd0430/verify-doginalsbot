@@ -87,7 +87,7 @@ client.once('ready', async () => {
   setInterval(() => {
     console.log("Running `checkWallets` interval...");
     checkWallets().catch(error => console.error("Error in `checkWallets`:", error));
-  }, 60000); // Periodically check wallets every 60 seconds
+  }, 180000); // Periodically check wallets every 60 seconds
 });
 
 client.on('interactionCreate', async (interaction) => {
